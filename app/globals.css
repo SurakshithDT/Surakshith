@@ -3,24 +3,68 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --dish-red: #EF2F21;
+  --dish-dark: #121212;
+  --dish-gray: #F5F5F7;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-dish-red: var(--dish-red);
+  --color-dish-dark: var(--dish-dark);
+  --color-dish-gray: var(--dish-gray);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+.spline-root a[href*="spline.design"],
+.spline-root a[href*="splinetool"],
+.spline-root a[href*="spline.app"],
+.spline-root [class*="spline"][class*="credit"],
+.spline-root [class*="spline"][class*="badge"],
+.spline-root [class*="credit"],
+.spline-root [class*="badge"],
+.spline-root [class*="logo"],
+.spline-root [class*="watermark"],
+.spline-root [class*="built"],
+.spline-root [class*="powered"] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --dish-gray: #1a1a1a;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
 }
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+
