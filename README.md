@@ -2,7 +2,7 @@
 
 Welcome to the source code of my centralized web ecosystem. This repository serves as a public-facing portfolio, an interactive 3D showcase, and the frontend hub for my DevOps, MLOps, and automation projects.
 
-Live Site: **[surakshithdt.vercel.app](https://surakshithdt.vercel.app)** *(Link will be active post-deployment)*
+Live Site: **[surakshithdt.vercel.app](https://surakshithd.vercel.app)** *(Link will be active post-deployment)*
 
 ---
 
