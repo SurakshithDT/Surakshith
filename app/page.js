@@ -6,7 +6,7 @@ export default function Home() {
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex flex-col">
         <h1 className="text-4xl font-bold mb-8">Surakshith's Portfolio Ecosystem</h1>
         <p className="text-xl mb-12 text-center text-gray-400 max-w-2xl">
-          Network Engineer, Software Developer, and Web Developer specialized in DevOps, MLOps, and AIOps.
+          Network Engineer, Software Developer, and Web Developer specialized in DevOps, MLOps, and AIOps. <span className="text-blue-400">A Fellow Tech Geek</span>
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
