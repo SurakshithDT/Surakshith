@@ -2,7 +2,7 @@
 
 import Spline from '@splinetool/react-spline';
 import { useEffect, Suspense, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 import Navbar from '@/components/3d-remote-product-marketing-page/Navbar';
 import Features from '@/components/3d-remote-product-marketing-page/Features';
 import Specs from '@/components/3d-remote-product-marketing-page/Specs';
@@ -11,12 +11,39 @@ import { ChevronDown, AlertCircle } from 'lucide-react';
 
 export default function Home() {
   const { scrollY } = useScroll();
+  const [splineApp, setSplineApp] = useState(null);
+  const [heroHeight, setHeroHeight] = useState('2650vh');
+  const [isTrimmed, setIsTrimmed] = useState(false);
   
   // Transform scroll position to opacity and scale for the hero text
-  // As soon as user scrolls (0 to 300px), text fades out (1 to 0)
-  const heroOpacity = useTransform(scrollY, [0, 300], [1, 0]);
-  const heroScale = useTransform(scrollY, [0, 300], [1, 0.9]);
-  const heroY = useTransform(scrollY, [0, 300], [0, -50]);
+  // As soon as user scrolls (0 to 150px), text fades out (1 to 0)
+  const heroOpacity = useTransform(scrollY, [0, 150], [1, 0]);
+  const heroScale = useTransform(scrollY, [0, 150], [1, 0.9]);
+  const heroY = useTransform(scrollY, [0, 150], [0, -50]);
+
+  // Monitor scroll progress from Spline to dynamically trim the height
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (splineApp) {
+      try {
+        const progress = splineApp.getVariable('scrollProgress');
+        
+        // If animation finished (progress >= 1), trim the container height to remove empty gap
+        if (progress >= 1 && !isTrimmed) {
+          // Set height to current scroll position + 1.5 viewport heights
+          // The extra 0.5 allows the user to scroll a bit more while seeing the loop
+          setHeroHeight(`${latest + (window.innerHeight * 1.5)}px`);
+          setIsTrimmed(true);
+        } 
+        // If user scrolls back up, restore the height to allow re-scrolling
+        else if (progress < 0.99 && isTrimmed) {
+          setHeroHeight('2650vh');
+          setIsTrimmed(false);
+        }
+      } catch (e) {
+        // Variable might not be initialized yet
+      }
+    }
+  });
 
   useEffect(() => {
     
@@ -59,10 +86,16 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Section with Spline */}
-      <section className="relative h-[2650vh] w-full bg-black">
+      <section 
+        className="relative w-full bg-black" 
+        style={{ height: heroHeight }}
+      >
         <div className="sticky top-0 left-0 h-screen w-full overflow-hidden spline-root">
           <Suspense fallback={<div className="w-full h-full flex items-center justify-center bg-black text-white">Loading Experience...</div>}>
-            <Spline scene="/final-scene-without-variable-for scroll.splinecode" />
+            <Spline 
+              scene="/the-variable-integration.splinecode" 
+              onLoad={(spline) => setSplineApp(spline)}
+            />
           </Suspense>
 
           {/* Overlay Content for Hero - Now animated to vanish on scroll */}
