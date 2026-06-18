@@ -12,7 +12,7 @@ import { ChevronDown, AlertCircle } from 'lucide-react';
 export default function Home() {
   const { scrollY } = useScroll();
   const [splineApp, setSplineApp] = useState(null);
-  const [heroHeight, setHeroHeight] = useState('2650vh');
+  const [heroHeight, setHeroHeight] = useState('3550vh');
   const [isTrimmed, setIsTrimmed] = useState(false);
   
   // Transform scroll position to opacity and scale for the hero text
@@ -36,7 +36,7 @@ export default function Home() {
         } 
         // If user scrolls back up, restore the height to allow re-scrolling
         else if (progress < 0.99 && isTrimmed) {
-          setHeroHeight('2650vh');
+          setHeroHeight('3550vh');
           setIsTrimmed(false);
         }
       } catch (e) {
