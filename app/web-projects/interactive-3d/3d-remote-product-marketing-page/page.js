@@ -12,9 +12,9 @@ import { ChevronDown, AlertCircle } from 'lucide-react';
 export default function Home() {
   const { scrollY } = useScroll();
   const [splineApp, setSplineApp] = useState(null);
-  const [heroHeight, setHeroHeight] = useState('3550vh');
+  const [heroHeight, setHeroHeight] = useState('5000vh');
   const [isTrimmed, setIsTrimmed] = useState(false);
-  
+
   // Transform scroll position to opacity and scale for the hero text
   // As soon as user scrolls (0 to 150px), text fades out (1 to 0)
   const heroOpacity = useTransform(scrollY, [0, 150], [1, 0]);
@@ -26,17 +26,17 @@ export default function Home() {
     if (splineApp) {
       try {
         const progress = splineApp.getVariable('scrollProgress');
-        
+
         // If animation finished (progress >= 1), trim the container height to remove empty gap
         if (progress >= 1 && !isTrimmed) {
           // Set height to current scroll position + 1.5 viewport heights
           // The extra 0.5 allows the user to scroll a bit more while seeing the loop
           setHeroHeight(`${latest + (window.innerHeight * 1.5)}px`);
           setIsTrimmed(true);
-        } 
+        }
         // If user scrolls back up, restore the height to allow re-scrolling
         else if (progress < 0.99 && isTrimmed) {
-          setHeroHeight('3550vh');
+          setHeroHeight('5000vh');
           setIsTrimmed(false);
         }
       } catch (e) {
@@ -46,7 +46,7 @@ export default function Home() {
   });
 
   useEffect(() => {
-    
+
     const removeWatermark = () => {
       const selectors = [
         '.spline-watermark',
@@ -71,7 +71,7 @@ export default function Home() {
 
     removeWatermark();
     const interval = setInterval(removeWatermark, 1000);
-    
+
     const observer = new MutationObserver(() => removeWatermark());
     observer.observe(document.body, { childList: true, subtree: true });
 
@@ -86,14 +86,14 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Section with Spline */}
-      <section 
-        className="relative w-full bg-black" 
+      <section
+        className="relative w-full bg-black"
         style={{ height: heroHeight }}
       >
         <div className="sticky top-0 left-0 h-screen w-full overflow-hidden spline-root">
           <Suspense fallback={<div className="w-full h-full flex items-center justify-center bg-black text-white">Loading Experience...</div>}>
-            <Spline 
-              scene="/the-variable-integration.splinecode" 
+            <Spline
+              scene="/the-variable-integration.splinecode"
               onLoad={(spline) => setSplineApp(spline)}
             />
           </Suspense>
@@ -112,7 +112,7 @@ export default function Home() {
               </p>
             </div>
 
-            <motion.div 
+            <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ repeat: Infinity, duration: 2 }}
               className="absolute bottom-10"
@@ -131,7 +131,7 @@ export default function Home() {
             <div className="absolute top-0 right-0 p-4 opacity-5">
               <AlertCircle size={120} className="text-dish-red" />
             </div>
-            
+
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 bg-dish-red rounded-full flex items-center justify-center text-white">
@@ -139,22 +139,22 @@ export default function Home() {
                 </div>
                 <h2 className="text-2xl font-bold text-dish-dark">Project Disclosure & Prototype Status</h2>
               </div>
-              
+
               <div className="space-y-6 text-slate-700 leading-relaxed">
                 <p className="text-lg font-medium">
-                  This website is a <span className="text-dish-red">sample interactive prototype</span> created for demonstration purposes only. 
+                  This website is a <span className="text-dish-red">sample interactive prototype</span> created for demonstration purposes only.
                 </p>
-                
+
                 <p>
-                  Please be advised that this project is not affiliated with, sponsored by, or endorsed by DishTV or any associated brands. This page does not constitute an offer to sell or a recommendation to purchase any product displayed. 
+                  Please be advised that this project is not affiliated with, sponsored by, or endorsed by DishTV or any associated brands. This page does not constitute an offer to sell or a recommendation to purchase any product displayed.
                 </p>
-                
+
                 <div className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
                   <p className="text-sm italic text-slate-500">
                     "This is a demo prototype intended to showcase interactive web design and 3D integration. The final deliverable will feature further fine-tuned animations, highly optimized designs, and refined user experience flows. This serves as a conceptual model to illustrate the potential of modern web technologies."
                   </p>
                 </div>
-                
+
                 <p className="text-sm text-slate-500">
                   All trademarks, logos, and brand names are the property of their respective owners. Their use here is for illustrative and portfolio purposes only.
                 </p>
@@ -179,7 +179,7 @@ export default function Home() {
           <div className="absolute top-0 left-0 w-64 h-64 bg-white rounded-full blur-3xl -ml-32 -mt-32"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl -mr-48 -mb-48"></div>
         </div>
-        
+
         <div className="container mx-auto px-6 relative z-10 text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -194,7 +194,7 @@ export default function Home() {
               Join millions of satisfied customers who have revolutionized their TV viewing experience with DishTV.
             </p>
             <div className="flex flex-wrap justify-center gap-6">
-              <a 
+              <a
                 href="https://www.linkedin.com/in/surakshithdt"
                 target="_blank"
                 rel="noopener noreferrer"
