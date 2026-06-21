@@ -31,7 +31,7 @@ export default function ScrollVideo({ children }) {
         const paddedIndex = i.toString().padStart(6, "0");
         const src = isMobile
           ? `/sequence/portrait/potrait-Programmer_sitting_dual_monitors__202606201012_${paddedIndex}_000001.webp`
-          : `/sequence/landscape/Programmer_sitting_dual_monitors__202606201011_${paddedIndex}.png`;
+          : `/sequence/landscape/landscape_${paddedIndex}.webp`;
 
         const img = new Image();
         img.src = src;
